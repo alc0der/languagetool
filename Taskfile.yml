@@ -1,0 +1,48 @@
+version: "3"
+
+tasks:
+  gitignore:
+    cmds:
+      - |
+        TEMPLATES=$(grep '^# >>' .gitignore | sed 's/^# >>//')
+        HEAD=$(head -n 4 .gitignore)
+        GENERATED=$(gibo dump $TEMPLATES)
+        printf '%s\n\n%s\n' "$HEAD" "$GENERATED" > .gitignore
+
+  build:
+    desc: Build the container image
+    cmds:
+      - container build -t languagetool -f Containerfile .
+
+  run:
+    desc: Run the container
+    deps: [build]
+    cmds:
+      - container run --rm -d --name languagetool -p 8010:8010 -e Java_Xms=512m -e Java_Xmx=1g -e langtool_languageModel=/ngrams -v {{.USER_WORKING_DIR}}/ngrams:/ngrams:ro languagetool
+
+  compose:
+    desc: Run using container-compose
+    cmds:
+      - container-compose up -d
+
+  download-ngrams:
+    desc: Download English ngram data for LanguageTool
+    cmds:
+      - curl -L -o ngrams/ngrams-en.zip https://languagetool.org/download/ngram-data/ngrams-en-20150817.zip
+      - unzip -o ngrams/ngrams-en.zip -d ngrams/
+      - rm ngrams/ngrams-en.zip
+    status:
+      - test -d ngrams/en
+
+  install:
+    desc: Install Python test dependencies
+    cmds:
+      - pip install -r requirements.txt
+    sources:
+      - requirements.txt
+
+  test:
+    desc: Run E2E tests (requires running service on port 8010)
+    deps: [install]
+    cmds:
+      - pytest test_languagetool.tavern.yaml -v
