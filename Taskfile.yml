@@ -18,7 +18,7 @@ tasks:
     desc: Run the container
     deps: [build]
     cmds:
-      - container run --rm -d --name languagetool -p 8010:8010 -e Java_Xms=512m -e Java_Xmx=1g -e langtool_languageModel=/ngrams -v {{.USER_WORKING_DIR}}/ngrams:/ngrams:ro languagetool
+      - container run --rm -d --name languagetool -p 8010:8010 -e Java_Xms=512m -e Java_Xmx=2g -e langtool_languageModel=/ngrams -v {{.USER_WORKING_DIR}}/ngrams:/ngrams:ro languagetool
 
   compose:
     desc: Run using container-compose
@@ -33,6 +33,23 @@ tasks:
       - rm ngrams/ngrams-en.zip
     status:
       - test -d ngrams/en
+
+  autostart:install:
+    desc: Install the LaunchAgent to start LanguageTool on login
+    cmds:
+      - mkdir -p ~/.local/bin
+      - cp autostart/container-autostart.sh ~/.local/bin/container-autostart.sh
+      - chmod +x ~/.local/bin/container-autostart.sh
+      - cp autostart/com.apple.container.autostart.plist ~/Library/LaunchAgents/com.apple.container.autostart.plist
+      - launchctl unload ~/Library/LaunchAgents/com.apple.container.autostart.plist 2>/dev/null || true
+      - launchctl load ~/Library/LaunchAgents/com.apple.container.autostart.plist
+
+  autostart:uninstall:
+    desc: Remove the LaunchAgent and stop autostart on login
+    cmds:
+      - launchctl unload ~/Library/LaunchAgents/com.apple.container.autostart.plist 2>/dev/null || true
+      - rm -f ~/Library/LaunchAgents/com.apple.container.autostart.plist
+      - rm -f ~/.local/bin/container-autostart.sh
 
   install:
     desc: Install Python test dependencies

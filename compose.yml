@@ -7,7 +7,7 @@ services:
     environment:
       langtool_languageModel: /ngrams
       Java_Xms: 512m
-      Java_Xmx: 1g
+      Java_Xmx: 2g
     volumes:
       - /Users/alc0der/code/alc0der/languagetool/ngrams:/ngrams:ro # OPTIONAL: The location of ngrams data on the local machine
     #   # - /path/to/logback.xml:/LanguageTool/logback.xml:ro  # OPTIONAL: Overwrite the logging configuration
