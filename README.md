@@ -4,19 +4,11 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 
 ## Running
 
-### Option 1: Compose
-
 ```sh
-container-compose up -d
+npm run run
 ```
 
-### Option 2: Container run script
-
-```sh
-./container-run.sh
-```
-
-Both options start LanguageTool on port **8010** with 512m–2g of Java heap and an optional ngrams volume mounted at `/ngrams`. The container runs on an internal (host-only) network with no internet access.
+This builds the custom image (with spelling additions), creates the internal network, and starts LanguageTool on port **8010** with 512m–2g of Java heap and an optional ngrams volume mounted at `/ngrams`. The container runs on an internal (host-only) network with no internet access.
 
 ## Autostart on login (macOS)
 

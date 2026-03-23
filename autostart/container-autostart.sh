@@ -21,4 +21,4 @@ sleep 3
   -e Java_Xmx=2g \
   -e langtool_languageModel=/ngrams \
   -v /Users/alc0der/code/alc0der/languagetool/ngrams:/ngrams:ro \
-  docker.io/erikvl87/languagetool
+  languagetool
