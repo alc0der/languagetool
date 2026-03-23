@@ -16,7 +16,7 @@ container-compose up -d
 ./container-run.sh
 ```
 
-Both options start LanguageTool on port **8010** with 512m–2g of Java heap and an optional ngrams volume mounted at `/ngrams`.
+Both options start LanguageTool on port **8010** with 512m–2g of Java heap and an optional ngrams volume mounted at `/ngrams`. The container runs on an internal (host-only) network with no internet access.
 
 ## Autostart on login (macOS)
 
@@ -25,7 +25,7 @@ A LaunchAgent can start LanguageTool automatically when you log in. This uses Ap
 ### Install
 
 ```sh
-task autostart:install
+npm run autostart:install
 ```
 
 This copies a startup script to `~/.local/bin/container-autostart.sh` and a LaunchAgent plist to `~/Library/LaunchAgents/`, then loads it.
@@ -33,7 +33,7 @@ This copies a startup script to `~/.local/bin/container-autostart.sh` and a Laun
 ### Uninstall
 
 ```sh
-task autostart:uninstall
+npm run autostart:uninstall
 ```
 
 ### Logs
