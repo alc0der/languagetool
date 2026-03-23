@@ -1,6 +1,7 @@
 # ignorectl:on
 
 .claude/settings.local.json
+.zed/
 ngrams/*/
 
 ## generate:

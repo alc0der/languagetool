@@ -1,6 +1,13 @@
-# LanguageTool
+# Private LanguageTool
 
 Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl87/languagetool](https://hub.docker.com/r/erikvl87/languagetool) container image, running on Apple's native `container` CLI.
+
+## Features
+
+- Private: runs LanguageTools in a native Apple Container that doesn't have access to the internet
+- Beyond Simple: Enables advanced LanguageTool features that go beyond simple spell check
+- Custom Dictionary: Syncs ignored words with tools like:
+  - Obsidian LanguageTool
 
 ## Running
 
@@ -34,4 +41,10 @@ Stdout and stderr are written to `/tmp/container-autostart.log` and `/tmp/contai
 
 ## Ngrams (optional)
 
-Place ngram data files in the `ngrams/` directory to enable additional grammar checks. See the [LanguageTool ngram documentation](https://dev.languagetool.org/finding-errors-using-n-gram-data) for details.
+Download English ngram data to enable additional grammar checks:
+
+```sh
+npm run download-ngrams
+```
+
+This fetches the ngram dataset into the `ngrams/` directory, which is mounted read-only into the container at `/ngrams`. See the [LanguageTool ngram documentation](https://dev.languagetool.org/finding-errors-using-n-gram-data) for details.

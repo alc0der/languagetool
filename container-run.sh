@@ -7,6 +7,6 @@ container run -d \
   -e Java_Xms=512m \
   -e Java_Xmx=2g \
   -e langtool_languageModel=/ngrams \
-  -v /Users/alc0der/code/alc0der/languagetool/ngrams:/ngrams:ro \
+  -v $PWD/ngrams:/ngrams:ro \
   languagetool
 

@@ -20,5 +20,5 @@ sleep 3
   -e Java_Xms=512m \
   -e Java_Xmx=2g \
   -e langtool_languageModel=/ngrams \
-  -v /Users/alc0der/code/alc0der/languagetool/ngrams:/ngrams:ro \
+  -v __REPO_DIR__/ngrams:/ngrams:ro \
   languagetool
