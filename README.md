@@ -6,7 +6,6 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 
 - **Private**: runs LanguageTool in a native Apple Container that doesn't have access to the internet
 - **Beyond Simple**: enables advanced LanguageTool features that go beyond simple spell check
-- **Custom Dictionary**: syncs ignored words with tools like [Obsidian LanguageTool](https://github.com/Clemens-E/obsidian-languagetool-plugin)
 
 ## Prerequisites
 
@@ -18,7 +17,6 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 
 ```sh
 brew install alc0der/plt/plt
-plt build
 plt download-ngrams   # optional, ~1.6 GB
 brew services start plt
 ```
@@ -28,7 +26,6 @@ brew services start plt
 Clone this repository, then:
 
 ```sh
-npm run build
 npm run download-ngrams   # optional, ~1.6 GB
 npm run run
 ```
@@ -45,7 +42,6 @@ For the desktop application, open **Settings > Advanced** and select *Other serv
 
 | Command | Description |
 |---|---|
-| `plt build` | Build the container image |
 | `plt start` | Start LanguageTool (detached) |
 | `plt stop` | Stop LanguageTool |
 | `plt status` | Show container status |
@@ -90,6 +86,11 @@ rm -rf "$(brew --prefix)/var/plt"
 npm run autostart:uninstall  # if autostart was enabled
 plt stop
 ```
+
+## Roadmap
+
+- **Custom dictionary**: sync ignored words with tools like [Obsidian LanguageTool](https://github.com/Clemens-E/obsidian-languagetool-plugin)
+- **Pre-built container image**: publish the image to a container registry (`ghcr.io`) so users can skip the `plt build` step entirely
 
 ## License
 

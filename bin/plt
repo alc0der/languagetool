@@ -16,7 +16,6 @@ usage() {
 Usage: plt <command>
 
 Commands:
-  build            Build the container image
   start            Start LanguageTool (detached)
   run              Start LanguageTool (foreground, for brew services)
   stop             Stop LanguageTool
@@ -25,14 +24,6 @@ Commands:
 
 LanguageTool runs at http://localhost:8010
 EOF
-}
-
-cmd_build() {
-  ensure_system
-  /usr/local/bin/container build \
-    -t languagetool \
-    -f "$PLT_LIBEXEC/Containerfile" \
-    "$PLT_LIBEXEC"
 }
 
 cmd_start() {
@@ -59,7 +50,6 @@ cmd_status() {
 }
 
 case "${1:-}" in
-  build)           cmd_build ;;
   start)           cmd_start ;;
   run)             cmd_run ;;
   stop)            cmd_stop ;;

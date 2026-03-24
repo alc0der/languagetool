@@ -18,5 +18,5 @@ else
     -e Java_Xmx=2g \
     -e langtool_languageModel=/ngrams \
     -v "$PLT_DATA/ngrams":/ngrams:ro \
-    languagetool
+    docker.io/erikvl87/languagetool
 fi

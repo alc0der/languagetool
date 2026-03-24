@@ -3,8 +3,6 @@
   "type": "module",
   "scripts": {
     "gitignore": "./scripts/gitignore.sh",
-    "build": "./bin/plt build",
-    "prerun": "npm run build",
     "run": "./bin/plt start",
     "download-ngrams": "./scripts/download-ngrams.sh",
     "autostart:install": "./scripts/autostart-install.sh",
