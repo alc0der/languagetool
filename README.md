@@ -4,9 +4,9 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 
 ## Features
 
-- Private: runs LanguageTools in a native Apple Container that doesn't have access to the internet
-- Beyond Simple: Enables advanced LanguageTool features that go beyond simple spell check
-- Custom Dictionary: Syncs ignored words with tools like:
+- **Private**: runs LanguageTools in a native Apple Container that doesn't have access to the internet
+- **Beyond Simple**: Enables advanced LanguageTool features that go beyond simple spell check
+- **Custom Dictionary**: Syncs ignored words with tools like:
   - Obsidian LanguageTool
 
 ## Running
