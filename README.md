@@ -4,47 +4,93 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 
 ## Features
 
-- **Private**: runs LanguageTools in a native Apple Container that doesn't have access to the internet
-- **Beyond Simple**: Enables advanced LanguageTool features that go beyond simple spell check
-- **Custom Dictionary**: Syncs ignored words with tools like:
-  - Obsidian LanguageTool
+- **Private**: runs LanguageTool in a native Apple Container that doesn't have access to the internet
+- **Beyond Simple**: enables advanced LanguageTool features that go beyond simple spell check
+- **Custom Dictionary**: syncs ignored words with tools like [Obsidian LanguageTool](https://github.com/Clemens-E/obsidian-languagetool-plugin)
 
-## Running
+## Prerequisites
+
+- macOS with [Apple container CLI](https://github.com/apple/container) (`/usr/local/bin/container`)
+
+## Installation
+
+### Homebrew (recommended)
 
 ```sh
+brew install alc0der/plt/plt
+plt build
+plt download-ngrams   # optional, ~1.6 GB
+brew services start plt
+```
+
+### Manual
+
+Clone this repository, then:
+
+```sh
+npm run build
+npm run download-ngrams   # optional, ~1.6 GB
 npm run run
 ```
 
-This builds the custom image (with spelling additions), creates the internal network, and starts LanguageTool on port **8010** with 512m–2g of Java heap and an optional ngrams volume mounted at `/ngrams`. The container runs on an internal (host-only) network with no internet access.
+## Usage
 
-## Autostart on login (macOS)
+LanguageTool runs at **http://localhost:8010**. Point any LanguageTool client to this URL.
 
-A LaunchAgent can start LanguageTool automatically when you log in. This uses Apple's native `container` CLI (`/usr/local/bin/container`).
+For the desktop application, open **Settings > Advanced** and select *Other server*, then enter `http://localhost:8010/v2`:
 
-### Install
+![LanguageTool Advanced Settings](./docs/screenshots/LanguageTool%20Settings.png)
 
-```sh
-npm run autostart:install
-```
+### CLI commands
 
-This copies a startup script to `~/.local/bin/container-autostart.sh` and a LaunchAgent plist to `~/Library/LaunchAgents/`, then loads it.
+| Command | Description |
+|---|---|
+| `plt build` | Build the container image |
+| `plt start` | Start LanguageTool (detached) |
+| `plt stop` | Stop LanguageTool |
+| `plt status` | Show container status |
+| `plt download-ngrams` | Download English ngram data (~1.6 GB) |
 
-### Uninstall
+### Autostart on login
 
-```sh
-npm run autostart:uninstall
-```
+**Homebrew** users get this automatically via `brew services start plt`.
 
-### Logs
-
-Stdout and stderr are written to `/tmp/container-autostart.log` and `/tmp/container-autostart.err`.
-
-## Ngrams (optional)
-
-Download English ngram data to enable additional grammar checks:
+**Manual** install users can set up a LaunchAgent:
 
 ```sh
-npm run download-ngrams
+npm run autostart:install    # enable
+npm run autostart:uninstall  # disable
 ```
 
-This fetches the ngram dataset into the `ngrams/` directory, which is mounted read-only into the container at `/ngrams`. See the [LanguageTool ngram documentation](https://dev.languagetool.org/finding-errors-using-n-gram-data) for details.
+Logs are written to `/tmp/container-autostart.log` and `/tmp/container-autostart.err`.
+
+### Ngrams
+
+Ngram data enables additional grammar checks beyond the default rule set. The download is optional but recommended. See the [LanguageTool ngram documentation](https://dev.languagetool.org/finding-errors-using-n-gram-data) for details.
+
+## Uninstallation
+
+### Homebrew
+
+```sh
+brew services stop plt
+brew uninstall plt
+brew untap alc0der/plt
+```
+
+To also remove downloaded ngram data:
+
+```sh
+rm -rf "$(brew --prefix)/var/plt"
+```
+
+### Manual
+
+```sh
+npm run autostart:uninstall  # if autostart was enabled
+plt stop
+```
+
+## License
+
+[MIT](LICENSE)

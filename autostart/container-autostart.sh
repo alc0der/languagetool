@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Source env vars (PLT_LIBEXEC, PLT_DATA) written by autostart-install.sh
+if [ -f ~/.local/etc/plt.env ]; then
+  # shellcheck source=/dev/null
+  . ~/.local/etc/plt.env
+  export PLT_LIBEXEC PLT_DATA
+fi
+
 # Wait for network to be ready
 sleep 5
 
@@ -9,20 +16,5 @@ sleep 5
 # Give the server a moment to initialize
 sleep 3
 
-# Create an internal (host-only) network — no internet access
-/usr/local/bin/container network create languagetool-net --internal 2>/dev/null || true
-
-# LanguageTool
-if /usr/local/bin/container list --all --quiet 2>/dev/null | grep -q '^languagetool$'; then
-  /usr/local/bin/container start languagetool
-else
-  /usr/local/bin/container run -d \
-    --name languagetool \
-    --network languagetool-net \
-    -p 8010:8010 \
-    -e Java_Xms=512m \
-    -e Java_Xmx=2g \
-    -e langtool_languageModel=/ngrams \
-    -v __REPO_DIR__/ngrams:/ngrams:ro \
-    languagetool
-fi
+# Delegate to the relocatable container-run.sh
+exec "${PLT_LIBEXEC:-$HOME/.local/bin}/container-run.sh"

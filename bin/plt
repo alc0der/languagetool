@@ -1,0 +1,65 @@
+#!/bin/bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLT_LIBEXEC="${PLT_LIBEXEC:-$SCRIPT_DIR/..}"
+PLT_DATA="${PLT_DATA:-$PLT_LIBEXEC}"
+
+export PLT_LIBEXEC PLT_DATA
+
+usage() {
+  cat <<EOF
+Usage: plt <command>
+
+Commands:
+  build            Build the container image
+  start            Start LanguageTool (detached)
+  run              Start LanguageTool (foreground, for brew services)
+  stop             Stop LanguageTool
+  download-ngrams  Download English ngram data (~1.6 GB)
+  status           Show container status
+
+LanguageTool runs at http://localhost:8010
+EOF
+}
+
+cmd_build() {
+  /usr/local/bin/container build \
+    -t languagetool \
+    -f "$PLT_LIBEXEC/Containerfile" \
+    "$PLT_LIBEXEC"
+}
+
+cmd_start() {
+  /usr/local/bin/container system start 2>/dev/null || true
+  "$PLT_LIBEXEC/container-run.sh"
+}
+
+cmd_run() {
+  # Foreground mode for brew services: start detached, then tail logs
+  cmd_start
+  exec /usr/local/bin/container logs -f languagetool
+}
+
+cmd_stop() {
+  /usr/local/bin/container stop languagetool 2>/dev/null || true
+}
+
+cmd_download_ngrams() {
+  "$PLT_LIBEXEC/scripts/download-ngrams.sh"
+}
+
+cmd_status() {
+  /usr/local/bin/container list --all 2>/dev/null | grep -E '(NAME|languagetool)' || echo "LanguageTool container not found"
+}
+
+case "${1:-}" in
+  build)           cmd_build ;;
+  start)           cmd_start ;;
+  run)             cmd_run ;;
+  stop)            cmd_stop ;;
+  download-ngrams) cmd_download_ngrams ;;
+  status)          cmd_status ;;
+  -h|--help|"")    usage ;;
+  *)               echo "Unknown command: $1" >&2; usage >&2; exit 1 ;;
+esac

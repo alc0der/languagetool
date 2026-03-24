@@ -3,10 +3,9 @@
   "type": "module",
   "scripts": {
     "gitignore": "./scripts/gitignore.sh",
-    "build": "container build -t languagetool -f Containerfile .",
-    "network:create": "container network create languagetool-net --internal 2>/dev/null || true",
-    "prerun": "npm run build && npm run network:create",
-    "run": "container run --rm -d --name languagetool --network languagetool-net -p 8010:8010 -e Java_Xms=512m -e Java_Xmx=2g -e langtool_languageModel=/ngrams -v $PWD/ngrams:/ngrams:ro languagetool",
+    "build": "./bin/plt build",
+    "prerun": "npm run build",
+    "run": "./bin/plt start",
     "download-ngrams": "./scripts/download-ngrams.sh",
     "autostart:install": "./scripts/autostart-install.sh",
     "autostart:uninstall": "./scripts/autostart-uninstall.sh",
