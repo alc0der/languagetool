@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "gitignore": "./scripts/gitignore.sh",
-    "run": "./bin/plt start",
+    "start": "./bin/plt start",
     "download-ngrams": "./scripts/download-ngrams.sh",
     "autostart:install": "./scripts/autostart-install.sh",
     "autostart:uninstall": "./scripts/autostart-uninstall.sh",
