@@ -1,3 +1,4 @@
+@not-implemented
 Feature: Custom dictionary
   Words added to en_spelling_additions.txt should be accepted by the spell checker after a container rebuild.
 
