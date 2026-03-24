@@ -7,6 +7,10 @@ PLT_DATA="${PLT_DATA:-$PLT_LIBEXEC}"
 
 export PLT_LIBEXEC PLT_DATA
 
+ensure_system() {
+  /usr/local/bin/container system start 2>/dev/null || true
+}
+
 usage() {
   cat <<EOF
 Usage: plt <command>
@@ -24,6 +28,7 @@ EOF
 }
 
 cmd_build() {
+  ensure_system
   /usr/local/bin/container build \
     -t languagetool \
     -f "$PLT_LIBEXEC/Containerfile" \
@@ -31,7 +36,7 @@ cmd_build() {
 }
 
 cmd_start() {
-  /usr/local/bin/container system start 2>/dev/null || true
+  ensure_system
   "$PLT_LIBEXEC/container-run.sh"
 }
 
