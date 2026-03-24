@@ -19,5 +19,5 @@ else
     -e Java_Xmx=2g \
     -e langtool_languageModel=/ngrams \
     -v "$PLT_DATA/ngrams":/ngrams:ro \
-    docker.io/erikvl87/languagetool
+    docker.io/erikvl87/languagetool:6.7-dockerupdate-3@sha256:e1ea6a97538848ba824076ee197eccdc81e5faeeac497512c74b2f556a1b5759
 fi
