@@ -13,12 +13,16 @@ sleep 3
 /usr/local/bin/container network create languagetool-net --internal 2>/dev/null || true
 
 # LanguageTool
-/usr/local/bin/container run -d \
-  --name languagetool \
-  --network languagetool-net \
-  -p 8010:8010 \
-  -e Java_Xms=512m \
-  -e Java_Xmx=2g \
-  -e langtool_languageModel=/ngrams \
-  -v __REPO_DIR__/ngrams:/ngrams:ro \
-  languagetool
+if /usr/local/bin/container list --all --quiet 2>/dev/null | grep -q '^languagetool$'; then
+  /usr/local/bin/container start languagetool
+else
+  /usr/local/bin/container run -d \
+    --name languagetool \
+    --network languagetool-net \
+    -p 8010:8010 \
+    -e Java_Xms=512m \
+    -e Java_Xmx=2g \
+    -e langtool_languageModel=/ngrams \
+    -v __REPO_DIR__/ngrams:/ngrams:ro \
+    languagetool
+fi
