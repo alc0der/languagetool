@@ -1,0 +1,29 @@
+version: "3"
+
+tasks:
+  start:
+    desc: Start LanguageTool (detached)
+    cmd: ./bin/plt start
+
+  download-ngrams:
+    desc: Download English ngram data (~1.6 GB)
+    cmd: ./scripts/download-ngrams.sh
+
+  diagrams:
+    desc: Generate D2 diagrams as SVGs
+    cmds:
+      - d2 --theme=0 --dark-theme=200 --target='layers.docker' docs/docker-vs-native.d2 docs/docker.svg
+      - d2 --theme=0 --dark-theme=200 --target='layers.native' docs/docker-vs-native.d2 docs/native.svg
+      - d2 --theme=0 --dark-theme=200 docs/architecture.d2 docs/architecture.svg
+
+  lint:
+    desc: Lint markdown with Vale
+    cmd: vale *.md
+
+  test:
+    desc: Run Cucumber BDD tests
+    cmd: deno run -A npm:@cucumber/cucumber
+
+  gitignore:
+    desc: Regenerate .gitignore from gibo templates
+    cmd: ./scripts/gitignore.sh

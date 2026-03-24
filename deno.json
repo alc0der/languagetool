@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "@cucumber/cucumber": "npm:@cucumber/cucumber@^12.7.0"
+  }
+}

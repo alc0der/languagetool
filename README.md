@@ -47,8 +47,8 @@ brew services start plt
 Clone this repository, then:
 
 ```sh
-npm run download-ngrams   # optional, ~1.6 GB
-npm run run
+task download-ngrams   # optional, ~1.6 GB
+./bin/plt start
 ```
 
 ## Usage
@@ -68,19 +68,6 @@ For the desktop application, open **Settings > Advanced** and select *Other serv
 | `plt uninstall` | Stop and remove the container and network |
 | `plt status` | Show container status |
 | `plt download-ngrams` | Download English ngram data (~1.6 GB) |
-
-### Autostart on login
-
-**Homebrew** users get this automatically via `brew services start plt`.
-
-**Manual** install users can set up a LaunchAgent:
-
-```sh
-npm run autostart:install    # enable
-npm run autostart:uninstall  # disable
-```
-
-Logs are written to `/tmp/container-autostart.log` and `/tmp/container-autostart.err`.
 
 ### Ngrams
 
@@ -106,7 +93,6 @@ rm -rf "$(brew --prefix)/var/plt"
 ### Manual
 
 ```sh
-npm run autostart:uninstall  # if autostart was enabled
 plt uninstall
 ```
 
