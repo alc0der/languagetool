@@ -1,0 +1,54 @@
+direction: down
+
+layers: {
+  docker: {
+    title: Docker Desktop on macOS {
+      shape: text
+      style.font-size: 24
+      style.bold: true
+    }
+
+    macos: macOS {
+      shape: rectangle
+    }
+
+    daemon: Docker Daemon {
+      shape: rectangle
+    }
+
+    vm: Linux VM {
+      runtime: Container Runtime {
+        shape: rectangle
+      }
+      container: Container {
+        shape: rectangle
+        style.fill: "#e8f4e8"
+      }
+      runtime -> container
+    }
+
+    macos -> daemon
+    daemon -> vm.runtime
+  }
+
+  native: {
+    title: Apple Native Containers {
+      shape: text
+      style.font-size: 24
+      style.bold: true
+    }
+
+    macos: macOS {
+      shape: rectangle
+    }
+
+    fw: Apple Virtualization Framework {
+      container: Container {
+        shape: rectangle
+        style.fill: "#e8f4e8"
+      }
+    }
+
+    macos -> fw.container
+  }
+}

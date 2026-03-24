@@ -9,6 +9,25 @@ Self-hosted [LanguageTool](https://languagetool.org/) instance using the [erikvl
 - **Private**: runs LanguageTool in a native Apple Container that doesn't have access to the internet
 - **Beyond Simple**: enables advanced LanguageTool features that go beyond simple spell check
 
+## Privacy Claims
+
+- The container runs in a network that has no internet access
+- The image [erikvl87/languagetool](https://hub.docker.com/r/erikvl87/languagetool) is credible enough that it is mentioned in the official LanguageTool repo
+
+## Architecture
+
+![Architecture](./docs/architecture.svg)
+
+The container runs on an [internal network](https://github.com/apple/container), which has no route to the internet. The only exposure is a port forward from `localhost:8010` into the container.
+
+## Why Not Docker?
+
+On macOS, Docker Desktop runs containers inside a Linux VM — an extra layer between your host and the container. Apple's native [container](https://github.com/apple/container) runtime uses the Apple Virtualization Framework directly, skipping the intermediate VM and daemon overhead.
+
+| Docker Desktop on macOS | Apple Native Containers |
+|:-:|:-:|
+| ![Docker](./docs/docker.svg) | ![Native](./docs/native.svg) |
+
 ## Prerequisites
 
 - macOS with [Apple container CLI](https://github.com/apple/container) (`/usr/local/bin/container`)
