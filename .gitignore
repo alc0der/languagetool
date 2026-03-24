@@ -3,6 +3,8 @@
 .claude/settings.local.json
 .zed/
 ngrams/*/
+.vale/styles/*/
+!.vale/styles/config/
 
 ## generate:
 ### >>macos

@@ -10,6 +10,7 @@
     "download-ngrams": "./scripts/download-ngrams.sh",
     "autostart:install": "./scripts/autostart-install.sh",
     "autostart:uninstall": "./scripts/autostart-uninstall.sh",
+    "lint": "vale *.md",
     "test": "npx cucumber-js"
   },
   "devDependencies": {
