@@ -65,6 +65,7 @@ For the desktop application, open **Settings > Advanced** and select *Other serv
 |---|---|
 | `plt start` | Start LanguageTool (detached) |
 | `plt stop` | Stop LanguageTool |
+| `plt uninstall` | Stop and remove the container and network |
 | `plt status` | Show container status |
 | `plt download-ngrams` | Download English ngram data (~1.6 GB) |
 
@@ -91,6 +92,7 @@ Ngram data enables additional grammar checks beyond the default rule set. The do
 
 ```sh
 brew services stop plt
+plt uninstall
 brew uninstall plt
 brew untap alc0der/plt
 ```
@@ -105,7 +107,7 @@ rm -rf "$(brew --prefix)/var/plt"
 
 ```sh
 npm run autostart:uninstall  # if autostart was enabled
-plt stop
+plt uninstall
 ```
 
 ## Roadmap
