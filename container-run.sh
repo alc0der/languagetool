@@ -13,6 +13,7 @@ else
   /usr/local/bin/container run -d \
     --name languagetool \
     --network languagetool-net \
+    --memory 3G \
     -p 8010:8010 \
     -e Java_Xms=512m \
     -e Java_Xmx=2g \
