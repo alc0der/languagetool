@@ -7,6 +7,7 @@
     "download-ngrams": "./scripts/download-ngrams.sh",
     "autostart:install": "./scripts/autostart-install.sh",
     "autostart:uninstall": "./scripts/autostart-uninstall.sh",
+    "diagrams": "d2 --theme=0 --dark-theme=200 --target='layers.docker' docs/docker-vs-native.d2 docs/docker.svg && d2 --theme=0 --dark-theme=200 --target='layers.native' docs/docker-vs-native.d2 docs/native.svg && d2 --theme=0 --dark-theme=200 docs/architecture.d2 docs/architecture.svg",
     "lint": "vale *.md",
     "test": "npx cucumber-js"
   },

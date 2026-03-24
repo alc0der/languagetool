@@ -1,18 +1,12 @@
 direction: right
 
 host: macOS Host {
-  client: LanguageTool Client {
-    shape: rectangle
-  }
+  client: LanguageTool Client
 
   net: languagetool-net {
     style.stroke-dash: 5
-    style.fill: transparent
 
-    container: LanguageTool Container {
-      shape: rectangle
-      style.fill: "#e8f4e8"
-    }
+    container: LanguageTool Container
   }
 
   client -> net.container: "localhost:8010"
@@ -20,7 +14,6 @@ host: macOS Host {
 
 internet: Internet {
   shape: cloud
-  style.fill: "#f5f5f5"
 }
 
 host.net.container -> internet: blocked {

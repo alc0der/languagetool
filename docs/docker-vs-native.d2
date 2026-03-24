@@ -8,22 +8,12 @@ layers: {
       style.bold: true
     }
 
-    macos: macOS {
-      shape: rectangle
-    }
-
-    daemon: Docker Daemon {
-      shape: rectangle
-    }
+    macos: macOS
+    daemon: Docker Daemon
 
     vm: Linux VM {
-      runtime: Container Runtime {
-        shape: rectangle
-      }
-      container: Container {
-        shape: rectangle
-        style.fill: "#e8f4e8"
-      }
+      runtime: Container Runtime
+      container: Container
       runtime -> container
     }
 
@@ -38,15 +28,10 @@ layers: {
       style.bold: true
     }
 
-    macos: macOS {
-      shape: rectangle
-    }
+    macos: macOS
 
     fw: Apple Virtualization Framework {
-      container: Container {
-        shape: rectangle
-        style.fill: "#e8f4e8"
-      }
+      container: Container
     }
 
     macos -> fw.container
