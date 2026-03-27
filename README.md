@@ -30,7 +30,7 @@ On macOS, Docker Desktop runs containers inside a Linux VM — an extra layer be
 
 ## Prerequisites
 
-- macOS with [Apple container CLI](https://github.com/apple/container) (`/usr/local/bin/container`)
+- macOS with [Apple container CLI](https://github.com/apple/container) (install via `brew install container`)
 
 ## Installation
 

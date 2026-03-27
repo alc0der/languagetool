@@ -8,7 +8,7 @@ PLT_DATA="${PLT_DATA:-$PLT_LIBEXEC}"
 export PLT_LIBEXEC PLT_DATA
 
 ensure_system() {
-  /usr/local/bin/container system start 2>/dev/null || true
+  container system start 2>/dev/null || true
 }
 
 usage() {
@@ -35,19 +35,19 @@ cmd_start() {
 cmd_run() {
   # Foreground mode for brew services: start detached, then tail logs.
   # Trap ensures the container stops when brew services kills this process.
-  trap '/usr/local/bin/container stop languagetool 2>/dev/null || true' EXIT INT TERM
+  trap 'container stop languagetool 2>/dev/null || true' EXIT INT TERM
   cmd_start
-  /usr/local/bin/container logs -f languagetool
+  container logs -f languagetool
 }
 
 cmd_stop() {
-  /usr/local/bin/container stop languagetool 2>/dev/null || true
+  container stop languagetool 2>/dev/null || true
 }
 
 cmd_uninstall() {
   cmd_stop
-  /usr/local/bin/container rm languagetool 2>/dev/null || true
-  /usr/local/bin/container network rm languagetool-net 2>/dev/null || true
+  container rm languagetool 2>/dev/null || true
+  container network rm languagetool-net 2>/dev/null || true
 }
 
 cmd_download_ngrams() {
@@ -55,7 +55,7 @@ cmd_download_ngrams() {
 }
 
 cmd_status() {
-  /usr/local/bin/container list --all 2>/dev/null | grep -E '(NAME|languagetool)' || echo "LanguageTool container not found"
+  container list --all 2>/dev/null | grep -E '(NAME|languagetool)' || echo "LanguageTool container not found"
 }
 
 case "${1:-}" in
